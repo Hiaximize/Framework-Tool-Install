@@ -2,6 +2,7 @@
 
 import subprocess
 import os
+#import fileinput
 
 print("This script will help you update the necessary configuration files"
       " to get tor started, but also install the frameworks")
@@ -124,7 +125,29 @@ def install_repository_tools():
     subprocess.call("apt-get install pdas -y", shell=True)
     subprocess.call("apt-get install mitmf -y", shell=True)
 
+def setup_networkmanager():
+    print("You will need to change the value from false to true, click the exit button when done")
+    subprocess.call("leafpad /etc/NetworkManager/NetworkManager.conf", shell=True)
+    subprocess.call("service network-manager restart", shell=True)
+    subprocess.call("clear", shell=True)
+    print("There is one more thing to do which is quite complicated but hopefully this gets everything up and running "
+          "for your network")
+    subprocess.call("clear", shell=True)
+# def setup_NetworkManager():
+#     with cd("/"):
+#         with cd("etc/NetworkManager/"):
+#             tempfile = open("etc/NetworkManager/NetworkManager.conf", 'r+')
+#             for line in fileinput.input("NetworkManager.conf"):
+#                 if "true" in line:
+#                     print("Current value set to true")
+#                     continue
+#                 else:
+#                     print("Changing value to true")
+#                     tempfile.write(line.replace("false", "true"))
+#                     tempfile.close()
 
+setup_networkmanager()
+#setup_NetworkManager()
 installing_and_setup_tor()
 install_beelogger()
 install_thefatrat()
